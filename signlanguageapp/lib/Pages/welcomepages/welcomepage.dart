@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signlanguageapp/Pages/welcomepages/loginpage.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -11,7 +12,20 @@ class _HomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade300,
+      backgroundColor: Colors.indigo[700],
+      body: Center(
+        child: ElevatedButton(
+          child: const Text("Login"),
+          onPressed: () {
+            Navigator.push(
+              context, 
+              MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
