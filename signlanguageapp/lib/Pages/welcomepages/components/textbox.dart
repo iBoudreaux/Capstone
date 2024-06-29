@@ -25,13 +25,14 @@ class MyTextBox extends StatelessWidget {
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.deepPurple.shade400),
-                borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(15),
+              
             ),
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.all(Radius.circular(30))
+              borderRadius: BorderRadius.all(Radius.circular(20))
             ),
-            fillColor: const Color(0xFFD1C0F1),
+            fillColor: Colors.white38,
             filled: true,
             hintText: hintText,
           ),
