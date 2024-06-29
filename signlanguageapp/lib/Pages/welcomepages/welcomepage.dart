@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signlanguageapp/Pages/welcomepages/loginpage.dart';
+import 'package:signlanguageapp/Pages/databaseconn.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -17,12 +18,13 @@ class _HomePageState extends State<WelcomePage> {
         child: ElevatedButton(
           child: const Text("Login"),
           onPressed: () {
-            Navigator.push(
-              context, 
-              MaterialPageRoute(
-              builder: (context) => const LoginPage(),
-              ),
-            );
+            readUserInfo();
+            // Navigator.push(
+            //   context, 
+            //   MaterialPageRoute(
+            //   builder: (context) => LoginPage(),
+            //   ),
+            // );
           },
         ),
       ),
