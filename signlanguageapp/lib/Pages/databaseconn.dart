@@ -1,5 +1,8 @@
 import 'package:mysql_client/mysql_client.dart';
-import 'package:http/http.dart' as http;
+import 'package:hive_flutter/hive_flutter.dart';
+
+// Var to  hold user session
+var userSession = Hive.box('storagebox');
 
 
 Future<MySQLConnection> connectToDatabase () async 
@@ -15,7 +18,7 @@ Future<MySQLConnection> connectToDatabase () async
     return conn;
 }
 
-void createnewUser(String firstName, String lastName, String email, String password) async 
+Future<bool> createnewUser(String firstName, String lastName, String email, String password) async 
 {
   // ignore: prefer_typing_uninitialized_variables
   var conn =  await connectToDatabase();
@@ -24,19 +27,26 @@ void createnewUser(String firstName, String lastName, String email, String passw
 
   if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty){
     print("Please enter in all information above.");
+  await conn.close();
+
+    return false;
   }
   else{
     await conn.execute(
       "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)",
       {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password});
+
+    
+    readUserInfo(email, password);
+
+      return true;
   }
   
 
-  await conn.close();
 }
 
-Future<void> readUserInfo(String email, String password) 
-async {
+Future<bool> readUserInfo(String email, String password) async 
+{
   var conn =  await connectToDatabase();
 
   await conn.connect();
@@ -45,17 +55,38 @@ async {
   if (result.rows.isEmpty )
   {
     print("User cannot be found/doesn't exist.");
+    await conn.close();
+
+    return false;
   }
   else 
   {
-    for (var element in result.rows) 
-    {
+    for (var element in result.rows) {
     Map data = element.assoc();
-    print('Id: ${data['userID']}, firstName: ${data['firstName']}, lastName: ${data['lastName']}, email: ${data['email']}, password: ${data['password']}');
+
+    userSession.put("userID", data['userID']);
+    userSession.put("firstname", data['firstName']);
+    userSession.put("lastname", data['lastName']);
+
+
+    //print(userSession.get("userID"));
+
+    }
+  
+    await conn.close();
+
+    return true;
     }
   }
 
-  
+  Future<void> updateUserInfo (String fieldName, String value) async 
+  {
+    var conn =  await connectToDatabase();
+    await conn.connect();
 
-  await conn.close();
-}
+    var userID = userSession.get("userID");
+
+    await conn.execute("UPDATE users SET $fieldName = '$value' WHERE userID = '$userID'");
+
+  }
+
