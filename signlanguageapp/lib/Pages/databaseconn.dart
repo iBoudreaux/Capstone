@@ -67,9 +67,8 @@ Future<bool> readUserInfo(String email, String password) async
     userSession.put("userID", data['userID']);
     userSession.put("firstname", data['firstName']);
     userSession.put("lastname", data['lastName']);
+    userSession.put("email", data['email']);
 
-
-    //print(userSession.get("userID"));
 
     }
   

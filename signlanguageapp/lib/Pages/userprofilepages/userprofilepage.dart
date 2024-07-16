@@ -12,21 +12,22 @@ class UserProfile extends StatelessWidget{
   final userSession = Hive.box('storagebox');
 
 
-  String getUserName()
+  (String, String ) getUserName()
   {
     var firstname = userSession.get('firstname');
     var lastname = userSession.get('lastname');
+    var email = userSession.get('email');
 
     var fullname = firstname + " " + lastname;
 
-    return fullname;
+    return (fullname, email);
   }
 
 
 
   @override
   Widget build(BuildContext context) {
-    var name = getUserName();
+    var (name, email) = getUserName();
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
@@ -98,7 +99,7 @@ class UserProfile extends StatelessWidget{
               top: 320,
               left: 60,
               child: Text(
-                "Email: email@.com",
+                "Email: $email",
                 style: 
                 GoogleFonts.montserrat(
                   color:const Color.fromARGB(255, 11, 95, 220), 
@@ -131,7 +132,7 @@ class UserProfile extends StatelessWidget{
               ),
 
               const Padding(
-              padding: EdgeInsets.only(top:600),
+              padding: EdgeInsets.only(top:605),
               child: 
                 BottomNavBar()
               )
