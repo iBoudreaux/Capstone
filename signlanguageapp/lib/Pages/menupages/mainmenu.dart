@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:signlanguageapp/Pages/menupages/components/lessoncard.dart';
+import 'package:signlanguageapp/Pages/menupages/components/menulessoncard.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:signlanguageapp/Pages/menupages/components/bottomnavbar.dart';
 
