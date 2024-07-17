@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/letterlessons.dart';
+import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/letterexplainpage.dart';
 
 class IntroLessonPage extends StatelessWidget {
   final String strMessage;
