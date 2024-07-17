@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:signlanguageapp/Pages/menupages/components/answerchoicecard.dart';
+import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/letterpracticepage.dart';
 
 class ExamplePage extends StatelessWidget {
   const ExamplePage({super.key});
@@ -73,7 +73,7 @@ class ExamplePage extends StatelessWidget {
               Navigator.push(
                       context, 
                       MaterialPageRoute(
-                      builder: (context) => const ExamplePage(),
+                      builder: (context) => const LetterPractice(),
                         ),
                       );
             },
