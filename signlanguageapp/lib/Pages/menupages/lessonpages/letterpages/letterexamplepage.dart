@@ -11,7 +11,6 @@ class ExamplePage extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
       body: Stack(
         children: [
-
           Positioned(
           top: 80,
           left: 16,
@@ -56,7 +55,7 @@ class ExamplePage extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width - 32,
             child: Text(
-              "For exmaple, if your name was Abby, you would want to sign the letters 'A', 'B', 'B', and 'Y'.",
+              "For example, if your name was Abby, you would want to sign the letters 'A', 'B', 'B', and 'Y'.",
               style: GoogleFonts.montserrat(fontSize: 17),
               softWrap: true,
               textAlign: TextAlign.center,
