@@ -34,5 +34,40 @@ const List<Question> questions = [
     options: ['H', 'S', 'I', 'N'],
     imageString: "lib/Images/letterS.jpg",
     correctAnswerIndex: 'S'
+  ),
+
+  Question(
+  question : "What letter do you think is being signed?",
+  options: ["A", "B", "C", "D"],
+  imageString: "",
+  correctAnswerIndex: "C"
+  ),
+
+  Question(
+  question: "What letter do you think is being signed?",
+  options: ["E", "F", "G", "H"],
+  imageString: "",
+  correctAnswerIndex: "H"
+  ),
+
+  Question(
+  question: "What letter do you think is being signed?",
+  options: ["I", "J", "K", "L"],
+  imageString: "",
+  correctAnswerIndex: "I"
+  ),
+
+  Question(
+  question: "What letter do you think is being signed?",
+  options: ["M", "N", "O", "P"],
+  imageString: "",
+  correctAnswerIndex: "N"
+  ),
+
+  Question(
+  question: "What letter do you think is being signed?",
+  options: ["Q", "R", "S", "T"],
+    imageString: "",
+  correctAnswerIndex: "S"
   )
 ];
