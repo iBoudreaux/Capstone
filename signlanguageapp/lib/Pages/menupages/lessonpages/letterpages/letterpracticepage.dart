@@ -19,8 +19,13 @@ class _InputExampleState extends State<LetterPractice> {
     selectedAnswerIndex = value;
     final question = questions[questionIndex];
     if (selectedAnswerIndex == question.correctAnswerIndex) {
+
       score++;
-      print(score);
+      questionIndex++;
+      print("Correct!\n Score: $score");
+    }else {
+      print ("Incorrect");
+      questionIndex++;
     }
     setState(() {});
   }
