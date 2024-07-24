@@ -22,7 +22,13 @@ class LessonCard extends StatelessWidget {
       child: Container(
         width: 200,
         height: 200,
-        color: const Color.fromARGB(255, 127, 172, 42),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 97, 128, 41),
+          border: Border.all(
+            color: const Color.fromARGB(255, 97, 128, 41),
+            width: 6
+          ), borderRadius: BorderRadius.circular(12)
+        ),
         child: Column(
           children: [
             Image.asset(imagePath)
