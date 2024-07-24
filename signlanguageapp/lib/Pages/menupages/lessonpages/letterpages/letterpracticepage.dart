@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:signlanguageapp/Pages/questions/questions.dart';
+import 'package:signlanguageapp/Pages/menupages/components/questionletter.dart';
 
 class LetterPractice extends StatefulWidget {
   const LetterPractice({super.key});
@@ -32,7 +33,8 @@ class _InputExampleState extends State<LetterPractice> {
 
   @override
   Widget build(BuildContext context) {
-    final question = questions[questionIndex]; //grabbing first question obj
+    final question = questions[questionIndex]; 
+    final questionImg = question.imageString;//grabbing first question obj
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
       body: Stack(
@@ -47,7 +49,12 @@ class _InputExampleState extends State<LetterPractice> {
             )
           ),
 
-          Padding(padding: const EdgeInsets.only(top: 250, left: 70),
+          Padding( 
+            padding: const EdgeInsets.only(top:150, left: 100),
+            child: Questionletter(imagePath: questionImg)
+            ),
+
+          Padding(padding: const EdgeInsets.only(top: 350, left: 80),
           child:
             SizedBox(
               width: 250,
