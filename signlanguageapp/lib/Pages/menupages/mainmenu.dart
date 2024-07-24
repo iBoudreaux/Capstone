@@ -39,11 +39,11 @@ class MainMenu extends StatelessWidget{
               scrollDirection: Axis.horizontal,
               children: const [
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson1.png",),
+                LessonCard(imagePath: "lib/Images/abclessoncard.png",),
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson2.png",),
+                LessonCard(imagePath: "lib/Images/numberslessoncard.png",),
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson3.png",),
+                LessonCard(imagePath: "lib/Images/colorlessoncard.png"),
                 SizedBox(width: 12)
               ],
             )
@@ -60,11 +60,11 @@ class MainMenu extends StatelessWidget{
               scrollDirection: Axis.horizontal,
               children: const [
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson1.png",),
+                LessonCard(imagePath: "lib/Images/abclessoncard.png",),
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson2.png",),
+                LessonCard(imagePath: "lib/Images/numberslessoncard.png",),
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson3.png",),
+                LessonCard(imagePath: "lib/Images/colorlessoncard.png"),
                 SizedBox(width: 12)
               ],
             )
@@ -81,11 +81,11 @@ class MainMenu extends StatelessWidget{
               scrollDirection: Axis.horizontal,
               children: const [
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson1.png",),
+                LessonCard(imagePath: "lib/Images/abclessoncard.png",),
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson2.png",),
+                LessonCard(imagePath: "lib/Images/numberslessoncard.png",),
                 SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/lesson3.png",),
+                LessonCard(imagePath: "lib/Images/colorlessoncard.png"),
                 SizedBox(width: 12)
               ],
             )

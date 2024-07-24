@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:signlanguageapp/Pages/questions/questions.dart';
+import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/questions/questions.dart';
 import 'package:signlanguageapp/Pages/menupages/components/questionletter.dart';
 
 class LetterPractice extends StatefulWidget {
