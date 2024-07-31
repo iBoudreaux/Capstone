@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:signlanguageapp/Pages/menupages/mainmenu.dart';
 import 'package:signlanguageapp/Pages/userprofilepages/userprofilepage.dart';
+import 'package:signlanguageapp/Pages/menupages/searchaccounts.dart';
 
 
 class BottomNavBar extends StatelessWidget {
@@ -29,7 +30,15 @@ class BottomNavBar extends StatelessWidget {
         }
         ),
         const GButton(icon: Icons.calendar_month_outlined, text: "Calendar",),
-        const GButton(icon: Icons.search_rounded, text:"Search"),
+        GButton(icon: Icons.search_rounded, text:"Search",
+        onPressed: () {
+          Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                      builder: (context) => const UserSearchPage(),
+                        ),
+                      );
+        }),
         GButton(icon: Icons.person, text:"Profile",
         onPressed: () {
           Navigator.push(

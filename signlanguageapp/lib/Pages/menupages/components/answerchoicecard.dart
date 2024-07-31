@@ -17,7 +17,7 @@ class AnswerChoiceCard extends StatelessWidget{
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Text(
         answerchoice,
-        style: GoogleFonts.montserrat(fontSize: 13, color: Colors.white),
+        style: GoogleFonts.montserrat(fontSize: 13, color: Colors.black),
       ),
     );
   }

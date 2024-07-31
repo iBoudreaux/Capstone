@@ -20,50 +20,57 @@ class _InputExampleState extends State<LetterPractice> {
   int score = 0;
   int progress = 0;
   int finalIdx = 9;
+  bool answerSelected = false;
 
-  //check if we reached the end of the questions
-  bool isEndOfQues(){
-    globals.dailiesCompleted = globals.dailiesCompleted+ 0.1;
-    return questionIndex >= questions.length;
-  }
-  
-  //check for user picking cprrectanswer
   void pickAnswer(String value) {
-    selectedAnswerIndex = value;
+    if (answerSelected) return; // Prevent multiple selections
+
+    setState(() {
+      selectedAnswerIndex = value;
+      answerSelected = true;
+    });
+
     final question = questions[questionIndex];
     if (selectedAnswerIndex == question.correctAnswerIndex) {
-
       score++;
-
       print("Correct!\n Score: $score");
-    }else {
-      print ("Incorrect");
+    } else {
+      print("Incorrect");
     }
 
-    questionIndex++;
+    bool isEndOfQues(){
+    globals.dailiesCompleted = globals.dailiesCompleted+ 0.1;
+    return questionIndex >= questions.length;
+    }
 
-
-    //if end if questions, go to completed page
-    if (isEndOfQues()) {
-    // Navigate to CompletePage
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const CompletePage()),
-        );
+    // Wait for 2 seconds before moving to the next question
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        questionIndex++;
+        selectedAnswerIndex = null;
+        answerSelected = false;
       });
-    }
-    setState(() {});
+
+      if (isEndOfQues()) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const CompletePage()),
+          );
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final question = questions[questionIndex]; 
-    final questionImg = question.imageString;//grabbing first question obj
+    final question = questions[questionIndex];
+    final questionImg = question.imageString;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
       body: Stack(
         children: [
-
+          
           Padding(
             padding: const EdgeInsets.only(top: 100, left: 30),
             child: 
@@ -78,9 +85,9 @@ class _InputExampleState extends State<LetterPractice> {
             child: Questionletter(imagePath: questionImg)
             ),
 
-          Padding(padding: const EdgeInsets.only(top: 350, left: 80),
-          child:
-            SizedBox(
+          Padding(
+            padding: const EdgeInsets.only(top: 350, left: 80),
+            child: SizedBox(
               width: 250,
               height: 250,
               child: GridView.count(
@@ -90,31 +97,38 @@ class _InputExampleState extends State<LetterPractice> {
                 crossAxisSpacing: 16,
                 children: question.options.map((option) {
                   return GestureDetector(
-                    onTap: () {
-                      pickAnswer(option);
-                    },
+                    onTap: () => pickAnswer(option),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 50, 147, 125),
+                        color: const Color.fromARGB(255, 236, 242, 199),
                         borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: getBorderColor(option, question.correctAnswerIndex),
+                          width: 3,
+                        ),
                       ),
                       child: Center(
                         child: Text(
                           option,
-                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                          style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                       ),
                     ),
                   );
-                      }).toList(),
-                    ),
+                }).toList(),
+              ),
             ),
           ),
-
-          
-        ]
+        ],
       ),
     );
+  }
+
+  Color getBorderColor(String option, String correctAnswer) {
+    if (selectedAnswerIndex == null) return Colors.transparent;
+    if (option == correctAnswer) return const Color.fromARGB(255, 45, 130, 48);
+    if (option != correctAnswer) return const Color.fromARGB(255, 255, 75, 62);
+    return Colors.transparent;
   }
 }

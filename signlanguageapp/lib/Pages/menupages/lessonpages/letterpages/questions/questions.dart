@@ -39,35 +39,35 @@ const List<Question> questions = [
   Question(
   question : "What letter do you think is being signed?",
   options: ["A", "B", "C", "D"],
-  imageString: "",
+  imageString: "lib/Images/letterC.jpg",
   correctAnswerIndex: "C"
   ),
 
   Question(
   question: "What letter do you think is being signed?",
   options: ["E", "F", "G", "H"],
-  imageString: "",
+  imageString: "lib/Images/letterH.jpg",
   correctAnswerIndex: "H"
   ),
 
   Question(
   question: "What letter do you think is being signed?",
   options: ["I", "J", "K", "L"],
-  imageString: "",
+  imageString: "lib/Images/letterI.jpg",
   correctAnswerIndex: "I"
   ),
 
   Question(
   question: "What letter do you think is being signed?",
   options: ["M", "N", "O", "P"],
-  imageString: "",
+  imageString: "lib/Images/letterN.jpg",
   correctAnswerIndex: "N"
   ),
 
   Question(
   question: "What letter do you think is being signed?",
   options: ["Q", "R", "S", "T"],
-    imageString: "",
+    imageString: "lib/Images/letterS.jpg",
   correctAnswerIndex: "S"
   )
 ];

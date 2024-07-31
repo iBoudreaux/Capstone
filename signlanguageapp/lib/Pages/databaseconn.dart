@@ -35,7 +35,7 @@ Future<bool> createnewUser(String firstName, String lastName, String email, Stri
   }
   else{
     await conn.execute(
-      "INSERT INTO users (firstName, lastName, email, password, dailyGoal) VALUES (:firstName, :lastName, :email, :password, dailyGoal)",
+      "INSERT INTO users (firstName, lastName, email, password, dailyGoal) VALUES (:firstName, :lastName, :email, :password, :dailyGoal)",
       {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password, 'dailyGoal': daily});
 
     
@@ -91,4 +91,23 @@ Future<bool> readUserInfo(String email, String password) async
     await conn.execute("UPDATE users SET $fieldName = '$value' WHERE userID = '$userID'");
 
   }
+
+Future<List<Map<String, dynamic>>> findAUser(String username) async {
+  var conn = await connectToDatabase();
+  await conn.connect();
+
+  var results = await conn.execute("SELECT * FROM users WHERE firstName = '$username' OR firstName LIKE '%$username%'");
+
+  List<Map<String, dynamic>> users = [];
+  for (var row in results.rows) {
+    users.add({
+      'firstName': row.colByName('firstName'),
+      'email': row.colByName('email'),
+    });
+  }
+
+  await conn.close();
+  return users;
+}
+
 
