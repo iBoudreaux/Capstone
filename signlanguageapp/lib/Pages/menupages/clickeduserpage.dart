@@ -36,6 +36,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    var fullname = widget.user['firstName'] + " "+ widget.user['lastName'] ;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
       body: SafeArea(
@@ -58,6 +60,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     width: 125,
                     height: 125,
                     decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 139, 136, 136),
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: Colors.grey.shade300,
@@ -66,10 +69,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(62.5), // Half of the width/height
-                      child: Image.network(
+                      child: widget.user['profilepicture'] == null || widget.user['profilepicture'] == "" 
+                      ?
+                      Icon(
+                        Icons.person,
+                        size: 80,
+                        color: Colors.grey[400],
+                      ): Image.network(
                         "${widget.user['profilepicture']}",
                         fit: BoxFit.cover,
-                      ),
+                      )
+                      
                     ),
                   )
               ),
@@ -78,7 +88,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               top: 230,
               left: 150,
               child: Text(
-                '${widget.user['firstName']}',
+                fullname,
                 style: 
                 GoogleFonts.montserrat(
                   color:const Color.fromARGB(255, 11, 95, 220), 

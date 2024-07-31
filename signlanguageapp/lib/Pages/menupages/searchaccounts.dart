@@ -55,7 +55,7 @@ class _UserSearchPageState extends State<UserSearchPage> {
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ListTile(
-                      title: Text(user['firstName'], style: GoogleFonts.montserrat()),
+                      title: Text(user['firstName'] + user['lastName'], style: GoogleFonts.montserrat()),
                       subtitle: Text(user['email'], style: GoogleFonts.montserrat()),
                       onTap: () {
                         Navigator.push(

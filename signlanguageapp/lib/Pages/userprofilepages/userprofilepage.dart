@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:signlanguageapp/Pages/menupages/components/bottomnavbar.dart';
 import 'package:signlanguageapp/Pages/userprofilepages/overviewpage.dart';
-
+import 'package:signlanguageapp/Pages/databaseconn.dart';
 
 
 class UserProfile extends StatelessWidget{
@@ -55,12 +55,14 @@ class UserProfile extends StatelessWidget{
                   final ImagePicker picker = ImagePicker();
                   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
                   if (image == null) return;
+                  updateProfilePicture(image.path);
 
                   },
                 child: Container(
                     width: 125,
                     height: 125,
                     decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 139, 136, 136),
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: Colors.grey.shade300,
@@ -69,9 +71,15 @@ class UserProfile extends StatelessWidget{
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(62.5), // Half of the width/height
-                      child: Image.network(
+                      child: picture != null ? Image.network(
                         "$picture",
                         fit: BoxFit.cover,
+                      ):
+                      
+                      Icon(
+                        Icons.person,
+                        size: 80,
+                        color: Colors.grey[400],
                       ),
                     ),
                   )
@@ -119,7 +127,7 @@ class UserProfile extends StatelessWidget{
               top: 360,
               left: 60,
               child: Text(
-                "Password: *****",
+                "Password: ************",
                 style: 
                 GoogleFonts.montserrat(
                   color:const Color.fromARGB(255, 11, 95, 220), 

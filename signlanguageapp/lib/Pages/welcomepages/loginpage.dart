@@ -5,17 +5,23 @@ import 'package:signlanguageapp/Pages/welcomepages/components/squareTile.dart';
 import 'package:signlanguageapp/Pages/databaseconn.dart';
 import 'package:signlanguageapp/Pages/userprofilepages/userprofilepage.dart';
 
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-
-
-  //sign in method
-  void signIn() {}
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +31,6 @@ class LoginPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              
-
-              //moving the username textbox lower,can replace with logo later
               const SizedBox(height: 200),
               MyTextBox(controller: emailController, hintText: "Enter Email", obscureText: false, boxName: "Email"),
 
@@ -38,20 +41,17 @@ class LoginPage extends StatelessWidget {
               MyButton(
                 buttonName: "Sign in",
                 onTap: () async {
-                        Future<bool> success; 
-                        success = readUserInfo(emailController.text, passwordController.text);
+                  Future<bool> success = readUserInfo(emailController.text, passwordController.text);
 
-                        if (await success == true)
-                        {
-                          Navigator.push(
-                          // ignore: use_build_context_synchronously
-                          context, 
-                          MaterialPageRoute(
-                            builder: (context) => UserProfile(),
-                            ),
-                          );
-                        }
-                      }, 
+                  if (await success == true) {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => UserProfile(),
+                      ),
+                    );
+                  }
+                }, 
               ),
 
               const SizedBox(height: 50),
@@ -69,12 +69,13 @@ class LoginPage extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text('Or continue with'),
-                      ),
+                    ),
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
                         color: Colors.deepPurple[300]
-                      ))
+                      )
+                    )
                   ],
                 ),
               ),

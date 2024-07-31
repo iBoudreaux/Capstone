@@ -102,6 +102,7 @@ Future<List<Map<String, dynamic>>> findAUser(String username) async {
   for (var row in results.rows) {
     users.add({
       'firstName': row.colByName('firstName'),
+      'lastName': row.colByName('lastName'),
       'email': row.colByName('email'),
       'profilepicture': row.colByName('profilepicture')
     });
@@ -111,4 +112,13 @@ Future<List<Map<String, dynamic>>> findAUser(String username) async {
   return users;
 }
 
+Future<void> updateProfilePicture (String image) async 
+  {
+    var conn =  await connectToDatabase();
+    await conn.connect();
 
+    var userID = userSession.get("userID");
+
+    await conn.execute("UPDATE users SET profilepicture = '$image' WHERE userID = '$userID'");
+
+  }
