@@ -1,5 +1,6 @@
 import 'package:mysql_client/mysql_client.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:signlanguageapp/globalvariables.dart';
 
 // Var to  hold user session
 var userSession = Hive.box('storagebox');
@@ -18,14 +19,15 @@ Future<MySQLConnection> connectToDatabase () async
     return conn;
 }
 
-Future<bool> createnewUser(String firstName, String lastName, String email, String password) async 
+Future<bool> createnewUser(String firstName, String lastName, String email, String password, String dailyGoal) async 
 {
   // ignore: prefer_typing_uninitialized_variables
   var conn =  await connectToDatabase();
 
+  var daily = int.parse(dailyGoal);
   await conn.connect();
 
-  if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty){
+  if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty || dailyGoal.isEmpty){
     print("Please enter in all information above.");
   await conn.close();
 
@@ -33,8 +35,8 @@ Future<bool> createnewUser(String firstName, String lastName, String email, Stri
   }
   else{
     await conn.execute(
-      "INSERT INTO users (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)",
-      {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password});
+      "INSERT INTO users (firstName, lastName, email, password, dailyGoal) VALUES (:firstName, :lastName, :email, :password, dailyGoal)",
+      {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password, 'dailyGoal': daily});
 
     
     readUserInfo(email, password);
@@ -68,6 +70,7 @@ Future<bool> readUserInfo(String email, String password) async
     userSession.put("firstname", data['firstName']);
     userSession.put("lastname", data['lastName']);
     userSession.put("email", data['email']);
+    userSession.put("dailygoal", data['dailyGoal']);
 
 
     }

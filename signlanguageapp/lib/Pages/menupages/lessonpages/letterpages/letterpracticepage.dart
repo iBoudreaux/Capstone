@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/lessoncomplete.dart';
 import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/questions/questions.dart';
 import 'package:signlanguageapp/Pages/menupages/components/questionletter.dart';
+import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/lessoncomplete.dart';
+import 'package:signlanguageapp/globalvariables.dart' as globals;
+
 
 class LetterPractice extends StatefulWidget {
   const LetterPractice({super.key});
@@ -15,18 +19,38 @@ class _InputExampleState extends State<LetterPractice> {
   int questionIndex = 0;
   int score = 0;
   int progress = 0;
+  int finalIdx = 9;
 
+  //check if we reached the end of the questions
+  bool isEndOfQues(){
+    globals.dailiesCompleted = globals.dailiesCompleted+ 0.1;
+    return questionIndex >= questions.length;
+  }
+  
+  //check for user picking cprrectanswer
   void pickAnswer(String value) {
     selectedAnswerIndex = value;
     final question = questions[questionIndex];
     if (selectedAnswerIndex == question.correctAnswerIndex) {
 
       score++;
-      questionIndex++;
+
       print("Correct!\n Score: $score");
     }else {
       print ("Incorrect");
-      questionIndex++;
+    }
+
+    questionIndex++;
+
+
+    //if end if questions, go to completed page
+    if (isEndOfQues()) {
+    // Navigate to CompletePage
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const CompletePage()),
+        );
+      });
     }
     setState(() {});
   }
@@ -86,7 +110,9 @@ class _InputExampleState extends State<LetterPractice> {
                       }).toList(),
                     ),
             ),
-          )
+          ),
+
+          
         ]
       ),
     );

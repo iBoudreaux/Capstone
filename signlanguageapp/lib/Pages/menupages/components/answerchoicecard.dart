@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AnswerChoiceCard extends StatelessWidget{
-  var answerchoice;
+  final answerchoice;
   
-  AnswerChoiceCard({super.key, required this.answerchoice});
+  const AnswerChoiceCard({super.key, required this.answerchoice});
   
   @override
   Widget build(BuildContext context) {
