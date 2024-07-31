@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:signlanguageapp/Pages/databaseconn.dart';
+import 'package:signlanguageapp/Pages/menupages/clickeduserpage.dart';
 
 class UserSearchPage extends StatefulWidget {
   const UserSearchPage({super.key});
@@ -57,7 +58,12 @@ class _UserSearchPageState extends State<UserSearchPage> {
                       title: Text(user['firstName'], style: GoogleFonts.montserrat()),
                       subtitle: Text(user['email'], style: GoogleFonts.montserrat()),
                       onTap: () {
-                        // Handle card tap if needed
+                        Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                      builder: (context) => UserProfilePage(user: user),
+                        ),
+                      );
                       },
                     ),
                   );

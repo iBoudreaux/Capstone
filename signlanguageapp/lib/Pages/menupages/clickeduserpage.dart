@@ -1,36 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:signlanguageapp/Pages/menupages/components/bottomnavbar.dart';
-import 'package:signlanguageapp/Pages/userprofilepages/overviewpage.dart';
+class UserProfilePage extends StatefulWidget {
+  final Map<String, dynamic> user;
 
+  const UserProfilePage({Key? key, required this.user}) : super(key: key);
 
+  @override
+  _UserProfilePageState createState() => _UserProfilePageState();
+}
 
-class UserProfile extends StatelessWidget{
-  UserProfile({super.key});
+class _UserProfilePageState extends State<UserProfilePage> {
+  bool isFriend = false;
 
-  final userSession = Hive.box('storagebox');
-
-
-  (String, String ) getUserName()
-  {
-    var firstname = userSession.get('firstname');
-    var lastname = userSession.get('lastname');
-    var email = userSession.get('email');
-
-    var fullname = firstname + " " + lastname;
-
-    return (fullname, email);
+  @override
+  void initState() {
+    super.initState();
+    checkFriendshipStatus();
   }
 
+  Future<void> checkFriendshipStatus() async {
 
+    setState(() {
+      isFriend = false;
+    });
+  }
+
+  Future<void> addFriend() async {
+
+    print('Adding friend: ${widget.user['username']}');
+    setState(() {
+      isFriend = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    var (name, email) = getUserName();
-    var picture = userSession.get('picture');
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
       body: SafeArea(
@@ -45,19 +50,11 @@ class UserProfile extends StatelessWidget{
                 )
               )
             ),
-
-
+            
             Positioned(
               top:95,
               right:145,
-              child: GestureDetector(
-                onTap: () async {
-                  final ImagePicker picker = ImagePicker();
-                  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-                  if (image == null) return;
-
-                  },
-                child: Container(
+              child: Container(
                     width: 125,
                     height: 125,
                     decoration: BoxDecoration(
@@ -70,20 +67,18 @@ class UserProfile extends StatelessWidget{
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(62.5), // Half of the width/height
                       child: Image.network(
-                        "$picture",
+                        "${widget.user['profilepicture']}",
                         fit: BoxFit.cover,
                       ),
                     ),
                   )
-              )
               ),
-            
 
             Positioned(
               top: 230,
               left: 150,
               child: Text(
-                name,
+                '${widget.user['firstName']}',
                 style: 
                 GoogleFonts.montserrat(
                   color:const Color.fromARGB(255, 11, 95, 220), 
@@ -107,7 +102,7 @@ class UserProfile extends StatelessWidget{
               top: 320,
               left: 60,
               child: Text(
-                "Email: $email",
+                "Email: ${widget.user['email']} ",
                 style: 
                 GoogleFonts.montserrat(
                   color:const Color.fromARGB(255, 11, 95, 220), 
@@ -115,45 +110,6 @@ class UserProfile extends StatelessWidget{
               )
               ),
 
-              Positioned(
-              top: 360,
-              left: 60,
-              child: Text(
-                "Password: *****",
-                style: 
-                GoogleFonts.montserrat(
-                  color:const Color.fromARGB(255, 11, 95, 220), 
-                  fontWeight: FontWeight.w600, fontSize: 15),
-              )
-              ),
-
-              Positioned(
-              top: 430,
-              left: 30,
-              child: Text(
-                "Overview",
-                style: 
-                GoogleFonts.montserrat(
-                  color:const Color.fromARGB(255, 11, 95, 220), 
-                  fontWeight: FontWeight.w600, fontSize: 17),
-              )
-              ),
-
-            Positioned(
-              top: 420,
-              left: 120,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, 
-                      MaterialPageRoute(
-                      builder: (context) => OverviewPage(),
-                        ),
-                      );
-                },
-                child: const Icon(Icons.arrow_forward_rounded,)
-              )
-              ),
 
               const Padding(
               padding: EdgeInsets.only(top:605),
@@ -165,6 +121,4 @@ class UserProfile extends StatelessWidget{
       )
     );
   }
-
-
 }

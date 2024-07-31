@@ -1,6 +1,5 @@
 import 'package:mysql_client/mysql_client.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:signlanguageapp/globalvariables.dart';
 
 // Var to  hold user session
 var userSession = Hive.box('storagebox');
@@ -71,6 +70,7 @@ Future<bool> readUserInfo(String email, String password) async
     userSession.put("lastname", data['lastName']);
     userSession.put("email", data['email']);
     userSession.put("dailygoal", data['dailyGoal']);
+    userSession.put("picture", data['profilepicture']);
 
 
     }
@@ -103,6 +103,7 @@ Future<List<Map<String, dynamic>>> findAUser(String username) async {
     users.add({
       'firstName': row.colByName('firstName'),
       'email': row.colByName('email'),
+      'profilepicture': row.colByName('profilepicture')
     });
   }
 
