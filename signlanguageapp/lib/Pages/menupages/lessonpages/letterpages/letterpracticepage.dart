@@ -19,8 +19,19 @@ class _InputExampleState extends State<LetterPractice> {
   int questionIndex = 0;
   int score = 0;
   int progress = 0;
-  int finalIdx = 9;
+  late int finalIdx;
   bool answerSelected = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    finalIdx = questions.length - 1; // Set finalIdx to the last index of questions
+  }
+
+  bool isEndOfQues() {
+    return questionIndex >= questions.length - 1;
+  }
 
   void pickAnswer(String value) {
     if (answerSelected) return; // Prevent multiple selections
@@ -38,24 +49,23 @@ class _InputExampleState extends State<LetterPractice> {
       print("Incorrect");
     }
 
-    bool isEndOfQues(){
-    globals.dailiesCompleted = globals.dailiesCompleted+ 0.1;
-    return questionIndex >= questions.length;
-    }
-
-    // Wait for 2 seconds before moving to the next question
+    // Wait for 2 seconds before moving to the next question or ending the lesson
     Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        questionIndex++;
-        selectedAnswerIndex = null;
-        answerSelected = false;
-      });
-
       if (isEndOfQues()) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const CompletePage()),
-          );
+        globals.dailiesCompleted = globals.dailiesCompleted + 0.1;
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => Lessoncomplete(
+              score: score,
+              totalQuestions: questions.length,
+            ),
+          ),
+        );
+      } else {
+        setState(() {
+          questionIndex++;
+          selectedAnswerIndex = null;
+          answerSelected = false;
         });
       }
     });
@@ -63,6 +73,15 @@ class _InputExampleState extends State<LetterPractice> {
 
   @override
   Widget build(BuildContext context) {
+    if (questionIndex >= questions.length) {
+      // This should not happen, but just in case
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     final question = questions[questionIndex];
     final questionImg = question.imageString;
 
@@ -70,21 +89,17 @@ class _InputExampleState extends State<LetterPractice> {
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
       body: Stack(
         children: [
-          
           Padding(
             padding: const EdgeInsets.only(top: 100, left: 30),
-            child: 
-            Text(
-              "Try it yourself.\n${question.question}",  //grabbing question in question obj
-              style: GoogleFonts.montserrat(fontSize: 15), 
-            )
-          ),
-
-          Padding( 
-            padding: const EdgeInsets.only(top:150, left: 100),
-            child: Questionletter(imagePath: questionImg)
+            child: Text(
+              "Try it yourself.\n${question.question}",
+              style: GoogleFonts.montserrat(fontSize: 15),
             ),
-
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 150, left: 100),
+            child: Questionletter(imagePath: questionImg),
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 350, left: 80),
             child: SizedBox(
@@ -125,6 +140,7 @@ class _InputExampleState extends State<LetterPractice> {
     );
   }
 
+// changes the border color of the answer choices
   Color getBorderColor(String option, String correctAnswer) {
     if (selectedAnswerIndex == null) return Colors.transparent;
     if (option == correctAnswer) return const Color.fromARGB(255, 45, 130, 48);
