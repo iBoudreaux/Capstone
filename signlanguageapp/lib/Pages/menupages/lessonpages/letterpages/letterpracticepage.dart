@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/lessoncomplete.dart';
 import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/questions/questions.dart';
 import 'package:signlanguageapp/Pages/menupages/components/questionletter.dart';
-import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/lessoncomplete.dart';
 import 'package:signlanguageapp/globalvariables.dart' as globals;
 
 

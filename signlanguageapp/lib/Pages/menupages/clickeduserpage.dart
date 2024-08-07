@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:signlanguageapp/Pages/menupages/components/bottomnavbar.dart';
 import 'package:signlanguageapp/Pages/databaseconn.dart';
-import 'package:signlanguageapp/globalvariables.dart';
 
 
 

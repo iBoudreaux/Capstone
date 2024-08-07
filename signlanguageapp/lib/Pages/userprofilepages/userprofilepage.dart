@@ -148,20 +148,26 @@ class UserProfile extends StatelessWidget{
               ),
 
             Positioned(
-              top: 420,
-              left: 120,
-              child: ElevatedButton(
+              top: 417,
+              left: 110,
+              child: IconButton(
                 onPressed: () {
                   Navigator.push(
-                      context, 
-                      MaterialPageRoute(
+                    context,
+                    MaterialPageRoute(
                       builder: (context) => OverviewPage(),
-                        ),
-                      );
+                    ),
+                  );
                 },
-                child: const Icon(Icons.arrow_forward_rounded,)
-              )
+                icon: const Icon(
+                  Icons.arrow_forward_rounded,
+                  size: 20, // Adjust icon size as needed
+                  color: Colors.black, // Change color if needed
+                ),
+                padding: EdgeInsets.zero, // Remove default padding
+                constraints: const BoxConstraints(), // Remove constraints
               ),
+            ),
 
               const Padding(
               padding: EdgeInsets.only(top:605),
