@@ -1,8 +1,27 @@
+import 'dart:math';
+
 import 'package:mysql_client/mysql_client.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // Var to  hold user session
 var userSession = Hive.box('storagebox');
+
+
+String generateUserId() {
+    final random = Random();
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    
+    String randomPart = '';
+    for (int i = 0; i < 30; i++) {
+      if (i == 10 || i == 20) {
+        randomPart += '-';
+      } else {
+        randomPart += chars[random.nextInt(chars.length)];
+      }
+    }
+    
+    return randomPart;
+  }
 
 
 Future<MySQLConnection> connectToDatabase () async 
@@ -33,10 +52,19 @@ Future<bool> createnewUser(String firstName, String lastName, String email, Stri
     return false;
   }
   else{
+    String userID = generateUserId();
+
+    var results  = await conn.execute("SELECT * FROM users WHERE UserIDString = '$userID'");
+    if (results.isNotEmpty){
+      userID = generateUserId();
+    } else {
+      
+
     await conn.execute(
       "INSERT INTO users (firstName, lastName, email, password, dailyGoal) VALUES (:firstName, :lastName, :email, :password, :dailyGoal)",
-      {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password, 'dailyGoal': daily});
+      {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password, 'dailyGoal': daily, 'userIDString': userID});
 
+    }
     
     readUserInfo(email, password);
 
@@ -71,6 +99,7 @@ Future<bool> readUserInfo(String email, String password) async
     userSession.put("email", data['email']);
     userSession.put("dailygoal", data['dailyGoal']);
     userSession.put("picture", data['profilepicture']);
+    userSession.put("UserID1",data["userIDString"]);
 
 
     }
@@ -104,7 +133,8 @@ Future<List<Map<String, dynamic>>> findAUser(String username) async {
       'firstName': row.colByName('firstName'),
       'lastName': row.colByName('lastName'),
       'email': row.colByName('email'),
-      'profilepicture': row.colByName('profilepicture')
+      'profilepicture': row.colByName('profilepicture'),
+      'UserID1': row.colByName('userIDString')
     });
   }
 
@@ -122,3 +152,83 @@ Future<void> updateProfilePicture (String image) async
     await conn.execute("UPDATE users SET profilepicture = '$image' WHERE userID = '$userID'");
 
   }
+
+Future<String> getFriendshipStatus(String userid1, String userid2) async {
+    var status;
+    try {
+      var conn = await connectToDatabase();
+      await conn.connect();
+
+      var results = await conn.execute(
+        "SELECT status from friendships where UserID1 = '$userid1' and UserID2 = '$userid2'"
+      );
+      
+      if (results.isNotEmpty) {
+        status = results.rows.first.colByName("Status");
+      } else {
+        status = "not friends";
+      }
+
+      return status;
+  }
+
+  catch (e) {
+      print('Error adding friend: $e');
+      return "not friends";
+    }
+
+}
+
+
+  Future<String> addFriendtoDB(String userId1, String userId2) async {
+    String status = "friends";
+
+    try {
+      var conn = await connectToDatabase();
+      await conn.connect();
+
+      String friendshipID;
+      var hasRes = true;
+
+      do {
+        friendshipID = generateUserId();
+
+        var results = await conn.execute("SELECT * FROM friendships WHERE FriendshipID = '$friendshipID'");
+
+        print(results);
+
+        if (results.isEmpty) hasRes = false;
+
+      } while(hasRes);
+
+
+      await conn.execute("INSERT INTO friendships (FriendshipID, UserID1, UserID2, status) VALUES (:FriendshipID, :UserID1, :UserID2, :status)",
+      {'FriendshipID': friendshipID, 'UserID1': userId1, 'UserID2': userId2, 'status': status});
+
+      return status;
+
+    } catch (e) {
+      print('Error adding friend: $e');
+      status = "not friends";
+      return status;
+    }
+  }
+
+  Future<String> unaddFriendFromDb(String userId, String userId2) async {
+    String status;
+    try {
+      var conn = await connectToDatabase();
+      await conn.connect();
+
+      await conn.execute("DELETE FROM friendships where UserID1 = '$userId' AND UserID2 = '$userId2'");
+      status = "not friends";
+      return status;
+
+    } catch (e) {
+      status = "friends";
+      print('Error unadding friend: $e');
+      return status;
+    }
+  }
+
+

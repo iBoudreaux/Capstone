@@ -6,7 +6,7 @@ var dailiesCompleted = 0.0;
 
 int numOfLessons = 5;
 
-final userSession = Hive.box('storagebox');
+final userLoggedIn = Hive.box('storagebox');
 
-var dailyGoal = userSession.get("dailygoal");
+var dailyGoal = userLoggedIn.get("dailygoal");
 

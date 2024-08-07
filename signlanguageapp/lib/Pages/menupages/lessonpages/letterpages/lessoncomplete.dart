@@ -56,7 +56,7 @@ class Lessoncomplete extends StatelessWidget {
                 child: LinearProgressIndicator(
                   value: score / totalQuestions,
                   backgroundColor: Colors.transparent,
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                  valueColor: const AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 69, 121, 185)),
                 ),
               ),
             ),
