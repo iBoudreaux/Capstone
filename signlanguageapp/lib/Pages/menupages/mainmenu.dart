@@ -1,104 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:signlanguageapp/Pages/menupages/components/menulessoncard.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:signlanguageapp/Pages/menupages/components/bottomnavbar.dart';
+import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/basiclessonletterpage.dart';
+import 'package:signlanguageapp/Pages/menupages/components/progressbar.dart';
 
-class MainMenu extends StatelessWidget{
+class MainMenu extends StatelessWidget {
   const MainMenu({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
-      body: ListView(
-        scrollDirection: Axis.vertical,
+      body: Column(
         children: [
-        Text("Daily Goal progress", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold),),
-            
-            //progress bar
-            LinearPercentIndicator(
-              width: 350,
-              lineHeight: 20,
-              percent: 0.7,
-              animation: true,
-              animationDuration: 1000,
-              progressColor: const Color.fromARGB(255, 69, 157, 106),
-              center: Text("70%", style: GoogleFonts.montserrat(),),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 40, bottom: 5),
+            child: Text("Daily Progress", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold))
             ),
 
-            const SizedBox(height: 40),
-
-            Text("Basics", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold),),
-            const SizedBox(height: 10),
-
-            //lesson cards
-            SizedBox(
-            height: 200,
-              child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/abclessoncard.png",),
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/numberslessoncard.png",),
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/colorlessoncard.png"),
-                SizedBox(width: 12)
-              ],
-            )
-          ),
-
-          const SizedBox(height: 30),
-
-          Text("Questions", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold),),
-          const SizedBox(height: 10),
-
-          SizedBox(
-            height: 200,
-              child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/abclessoncard.png",),
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/numberslessoncard.png",),
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/colorlessoncard.png"),
-                SizedBox(width: 12)
-              ],
-            )
-          ),
-
-          const SizedBox(height: 30),
-
-          Text("Sentence Forming", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold),),
-          const SizedBox(height: 10),
-
-          SizedBox(
-            height: 200,
-              child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/abclessoncard.png",),
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/numberslessoncard.png",),
-                SizedBox(width: 12),
-                LessonCard(imagePath: "lib/Images/colorlessoncard.png"),
-                SizedBox(width: 12)
-              ],
-            )
-          ),
-
-        const Padding(
-          padding: EdgeInsets.only(top:30),
+          // Progress bar
+          const Padding(padding: EdgeInsets.only(left: 10),
           child: 
-            BottomNavBar()
-          )
-          
-        ]
-      ) 
+          Progressbar(percentNum: 0.7, percentStr: "70%")
+          ),
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: [
+                LessonCard(
+                  lessonTitle: "Letters",
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LetterPage(),
+                      ),
+                      
+                    );
+                  },
+                  icon: Icons.abc_rounded, 
+                  percentStr: '33%',
+                  percentNum: 0.33,
+                  width: 300
+                ),
+
+              //Spacing
+                const SizedBox(height: 10),
+                LessonCard(
+                  lessonTitle: "Numbers",
+                  press: () {
+                    // Define navigation or action here
+                  },
+                  icon: Icons.onetwothree_rounded,
+                  percentStr: '%82',
+                  percentNum: 0.82,
+                  width: 300
+
+                ),
+
+                //Spacing
+                const SizedBox(height: 10),
+                LessonCard(
+                  lessonTitle: "Gestures",
+                  press: () {
+                    // Define navigation or action here
+                  },
+                  icon: Icons.waving_hand_rounded,
+                  percentStr: '57%',
+                  percentNum: 0.57,
+                  width: 300
+
+                ),
+              ],
+            ),
+          ),
+          // Navbar
+          const Padding(
+            padding: EdgeInsets.only(top: 30),
+            child: BottomNavBar(),
+          ),
+        ],
+      ),
     );
   }
 }
+
+
+

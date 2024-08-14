@@ -24,7 +24,7 @@ class BottomNavBar extends StatelessWidget {
           Navigator.push(
                       context, 
                       MaterialPageRoute(
-                      builder: (context) => const MainMenu(),
+                      builder: (context) => MainMenu(),
                         ),
                       );
         }

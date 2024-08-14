@@ -125,7 +125,9 @@ Future<List<Map<String, dynamic>>> findAUser(String username) async {
   var conn = await connectToDatabase();
   await conn.connect();
 
-  var results = await conn.execute("SELECT * FROM users WHERE firstName = '$username' OR firstName LIKE '%$username%'");
+  var emailstr = userSession.get("email");
+
+  var results = await conn.execute("SELECT * FROM users WHERE (firstName = '$username' OR firstName LIKE '%$username%') AND email <> '$emailstr'");
 
   List<Map<String, dynamic>> users = [];
   for (var row in results.rows) {

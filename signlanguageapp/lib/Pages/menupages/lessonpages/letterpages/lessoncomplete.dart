@@ -74,7 +74,7 @@ class Lessoncomplete extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const MainMenu(),
+                  builder: (context) => MainMenu(),
           ),
         );
               },

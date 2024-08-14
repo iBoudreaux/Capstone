@@ -50,6 +50,8 @@ dependencies:
 
   smooth_page_indicator: ^1.2.0
 
+  shared_preferences: ^2.0.15
+
 
 
   # The following adds the Cupertino Icons font to your application.
