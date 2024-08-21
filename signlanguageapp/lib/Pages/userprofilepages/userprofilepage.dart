@@ -169,6 +169,23 @@ class UserProfile extends StatelessWidget{
               ),
             ),
 
+            // Positioned(
+            //   top: 430,
+            //   left: 110,
+            //   child: Container(
+            //       height: 100,
+            //       width: 100,
+            //       decoration: BoxDecoration(
+            //         border: Border.all(
+            //           color: Colors.white,
+            //           width: 2
+            //         ),
+            //         borderRadius: BorderRadius.circular(12)
+            //       ),
+            //       child: const Text("About me:")
+            //   )
+            // ),
+
               const Padding(
               padding: EdgeInsets.only(top:605),
               child: 

@@ -3,6 +3,11 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:signlanguageapp/Pages/menupages/mainmenu.dart';
 import 'package:signlanguageapp/Pages/userprofilepages/userprofilepage.dart';
 import 'package:signlanguageapp/Pages/menupages/searchaccounts.dart';
+import 'package:signlanguageapp/Pages/databaseconn.dart';
+import 'package:signlanguageapp/Pages/welcomepages/welcomepage.dart';
+import 'package:signlanguageapp/Pages/menupages/calendar/calendar.dart';
+import 'package:signlanguageapp/Pages/menupages/components/bottomnavbar.dart';
+
 
 
 class BottomNavBar extends StatelessWidget {
@@ -29,7 +34,15 @@ class BottomNavBar extends StatelessWidget {
                       );
         }
         ),
-        const GButton(icon: Icons.calendar_month_outlined, text: "Calendar",),
+        GButton(icon: Icons.calendar_month_outlined, text: "Calendar",
+        onPressed: () {
+          Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                      builder: (context) => CalendarPage(),
+                        ),
+                      );
+        }),
         GButton(icon: Icons.search_rounded, text:"Search",
         onPressed: () {
           Navigator.push(
@@ -47,7 +60,19 @@ class BottomNavBar extends StatelessWidget {
                       builder: (context) => UserProfile(),
                         ),
                       );
-        })
+        }),
+
+        GButton(icon: Icons.logout_rounded, text: "Log out",
+        onPressed: () {
+          logoutUser();
+          Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                      builder: (context) => const WelcomePage(),
+                        ),
+                      );
+            },
+          )
       ]);
   }
 

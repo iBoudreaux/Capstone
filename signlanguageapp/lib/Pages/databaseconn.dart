@@ -110,6 +110,10 @@ Future<bool> readUserInfo(String email, String password) async
     }
   }
 
+  void logoutUser () {
+    userSession.clear();
+  }
+
   Future<void> updateUserInfo (String fieldName, String value) async 
   {
     var conn =  await connectToDatabase();

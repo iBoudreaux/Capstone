@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "103395930111",
+    "project_id": "asl-messaging",
+    "storage_bucket": "asl-messaging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103395930111:android:37aecea9e23d7f884941ca",
+        "android_client_info": {
+          "package_name": "com.example.signlanguageapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUgetTtIlO3CJ-bpUY2xmEHZ5qzVwDTxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

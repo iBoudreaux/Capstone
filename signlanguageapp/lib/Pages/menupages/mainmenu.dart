@@ -4,6 +4,7 @@ import 'package:signlanguageapp/Pages/menupages/components/menulessoncard.dart';
 import 'package:signlanguageapp/Pages/menupages/components/bottomnavbar.dart';
 import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/basiclessonletterpage.dart';
 import 'package:signlanguageapp/Pages/menupages/components/progressbar.dart';
+import 'package:signlanguageapp/Pages/menupages/lessonpages/letterpages/letterpractice2.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});
@@ -46,6 +47,25 @@ class MainMenu extends StatelessWidget {
                   width: 300
                 ),
 
+                const SizedBox(height: 10),
+                LessonCard(
+                  lessonTitle: "Letters Part 2",
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LetterPractice(),
+                      ),
+                      
+                    );
+                  },
+                  icon: Icons.abc_rounded,
+                  percentStr: '%82',
+                  percentNum: 0.82,
+                  width: 300
+
+                ),
+
               //Spacing
                 const SizedBox(height: 10),
                 LessonCard(
@@ -59,6 +79,7 @@ class MainMenu extends StatelessWidget {
                   width: 300
 
                 ),
+              
 
                 //Spacing
                 const SizedBox(height: 10),

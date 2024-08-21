@@ -4,6 +4,9 @@ import 'package:signlanguageapp/Pages/welcomepages/components/textbox.dart';
 import 'package:signlanguageapp/Pages/welcomepages/components/squareTile.dart';
 import 'package:signlanguageapp/Pages/databaseconn.dart';
 import 'package:signlanguageapp/Pages/userprofilepages/userprofilepage.dart';
+import 'package:signlanguageapp/Pages/welcomepages/components/dailylogincheck.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,6 +28,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var login = LoginCounter();
+    var box = Hive.box("storagebox");
+    var userIDString = box.get("UserID1");
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 127, 172, 42),
       body: SingleChildScrollView(
@@ -41,9 +47,11 @@ class _LoginPageState extends State<LoginPage> {
               MyButton(
                 buttonName: "Sign in",
                 onTap: () async {
+                  //reading user's input and search for them in the DB
                   Future<bool> success = readUserInfo(emailController.text, passwordController.text);
 
                   if (await success == true) {
+                    //if user is found, navigate to their userprofile
                     Navigator.push(
                       context, 
                       MaterialPageRoute(
@@ -51,6 +59,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   }
+
+                login.updateLoginCounter("$userIDString");
+                  
                 }, 
               ),
 
